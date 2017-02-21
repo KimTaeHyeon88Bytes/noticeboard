@@ -20,7 +20,7 @@ var postSchema = mongoose.Schema({
   createAt: {type:Date, default:Date.now},
   updateAt: Date
 });
-var Post = mongoose.model("post", dataSchema);
+var Post = mongoose.model("post", postSchema);
 /*Data.findOne({name:"myData"}, function(err, data) {
   if(err) {
     return console.log("Data ERROR", err);
@@ -39,15 +39,17 @@ var Post = mongoose.model("post", dataSchema);
   }
 });*/
 
-app.get("/", function(req, res) {
-  console.log("Hello World!");
-});
-
 var port = process.env.PORT || 8000;
 
 http.listen(port, function() {
   console.log("server on!");
 });
 
-app.use(express.static(__dirname + "/public"));
+app.set("view engine", "ejs");
+//app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
+
+app.get("/", function(req, res) {
+  res.render("test.ejs");
+  console.log("Hello World!");
+});
